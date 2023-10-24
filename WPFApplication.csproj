@@ -59,6 +59,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="RevitAPI.cs" />
+    <Compile Include="Utilities\SelectionFilter.cs" />
     <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

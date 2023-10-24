@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using WPFApplication.Utilities;
 
 namespace WPFApplication
 {
     public class ViewModel
     {
+        private ISelectionFilter _filter;
         public ViewModel(Reference reference)
         {
+            _filter = new SelectionFilter(RevitAPI.Document.GetElement(reference));
             CollectParameters(reference);
         }               
 
@@ -53,7 +56,8 @@ namespace WPFApplication
                         using (Transaction t = new Transaction(RevitAPI.Document, "Нумерация элементов"))
                         {
                             t.Start();
-                            Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Element, $"Выберите элемент {i}");
+                            //Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Element, _filter, $"Выберите элемент {i}");
+                            Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Edge, _filter, $"Выберите элемент {i}");
                             Parameter parameter = RevitAPI.Document.GetElement(reference).LookupParameter(parameterName);
                             if (parameter != null)
                             {
