@@ -22,6 +22,9 @@ namespace WPFApplication
             var reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Element, "Выберите элемент для сбора параметров");
             var viewModel = new ViewModel(reference);
             var view = new MainView(viewModel);
+            viewModel.CloseRequest += (s, e) => view.Close();
+            viewModel.HideRequest += (s, e) => view.Hide();
+            viewModel.ShowRequest += (s, e) => view.ShowDialog();
             view.ShowDialog();
             return Result.Succeeded;
         }

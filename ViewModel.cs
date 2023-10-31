@@ -8,25 +8,59 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using WPFApplication.Utilities;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace WPFApplication
 {
-    public class ViewModel
+    public class ViewModel : INotifyPropertyChanged
     {
-        private ISelectionFilter _filter;
+        private readonly ISelectionFilter _filter;
+        private string _prefix = string.Empty;
+        private string _startValue = string.Empty;
+        private Parameter _selectedParameter;
         public ViewModel(Reference reference)
         {
+            NumerateCommand = new RelayCommand(Numerate, CanNumerate);
             _filter = new SelectionFilter(RevitAPI.Document.GetElement(reference));
             CollectParameters(reference);
         }               
 
-        public string Prefix { get; set; }
-        public string StartValue { get; set; }
+        public RelayCommand NumerateCommand { get; set; }
+
+        public string Prefix 
+        {
+            get => _prefix;
+
+            set
+            {
+                _prefix = value;
+                OnPropertyChanged();
+            }
+        }
+        public string StartValue
+        {
+            get => _startValue;
+
+            set
+            {
+                _startValue = value;
+                OnPropertyChanged();
+            }
+        }
 
         public List<Parameter> Parameters { get; set; } = new List<Parameter>();
 
-        public Parameter SelectedParameter { get; set; }
+        public Parameter SelectedParameter
+        {
+            get => _selectedParameter;
 
+            set
+            {
+                _selectedParameter = value;
+                OnPropertyChanged();
+            }
+        }
         private void CollectParameters(Reference reference)
         {
             var element = RevitAPI.Document.GetElement(reference);
@@ -40,8 +74,9 @@ namespace WPFApplication
                 }
             }
         }
-        public void Numerate()
+        public void Numerate(object param)
         {
+            RaiseCloseRequest();
             int i = 1;
             int.TryParse(StartValue, out i);
             string parameterName = SelectedParameter.Definition.Name;
@@ -81,6 +116,32 @@ namespace WPFApplication
                     }
                 }
             }
+        }
+
+        private bool CanNumerate(object param)
+        {
+            return int.TryParse(StartValue, out _) && SelectedParameter != null;
+        }
+
+        public event EventHandler CloseRequest;
+        private void RaiseCloseRequest()
+        {
+            CloseRequest?.Invoke(this, EventArgs.Empty);
+        }
+        public event EventHandler HideRequest;
+        private void RaiseHideRequest()
+        {
+            HideRequest?.Invoke(this, EventArgs.Empty);
+        }
+        public event EventHandler ShowRequest;
+        private void RaiseShowRequest()
+        {
+            ShowRequest?.Invoke(this, EventArgs.Empty);
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
     }
 }
