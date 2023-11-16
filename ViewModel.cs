@@ -10,57 +10,24 @@ using System.Windows.Controls;
 using WPFApplication.Utilities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace WPFApplication
 {
-    public class ViewModel : INotifyPropertyChanged
+    public partial class ViewModel : ObservableObject
     {
         private readonly ISelectionFilter _filter;
-        private string _prefix = string.Empty;
-        private string _startValue = string.Empty;
-        private Parameter _selectedParameter;
-        public ViewModel(Reference reference)
-        {
-            NumerateCommand = new RelayCommand(Numerate, CanNumerate);
+        [ObservableProperty] private string _prefix = string.Empty;
+        [ObservableProperty] private string _startValue = string.Empty;
+        [ObservableProperty] private Parameter _selectedParameter;
+        public ViewModel(Reference reference)        {
+            
             _filter = new SelectionFilter(RevitAPI.Document.GetElement(reference));
             CollectParameters(reference);
-        }               
-
-        public RelayCommand NumerateCommand { get; set; }
-
-        public string Prefix 
-        {
-            get => _prefix;
-
-            set
-            {
-                _prefix = value;
-                OnPropertyChanged();
-            }
-        }
-        public string StartValue
-        {
-            get => _startValue;
-
-            set
-            {
-                _startValue = value;
-                OnPropertyChanged();
-            }
-        }
-
+        } 
         public List<Parameter> Parameters { get; set; } = new List<Parameter>();
-
-        public Parameter SelectedParameter
-        {
-            get => _selectedParameter;
-
-            set
-            {
-                _selectedParameter = value;
-                OnPropertyChanged();
-            }
-        }
+        
         private void CollectParameters(Reference reference)
         {
             var element = RevitAPI.Document.GetElement(reference);
@@ -74,7 +41,8 @@ namespace WPFApplication
                 }
             }
         }
-        public void Numerate(object param)
+        [RelayCommand(CanExecute = nameof(CanNumerate))]
+        public void Numerate()
         {
             RaiseCloseRequest();
             int i = 1;
@@ -118,7 +86,7 @@ namespace WPFApplication
             }
         }
 
-        private bool CanNumerate(object param)
+        private bool CanNumerate()
         {
             return int.TryParse(StartValue, out _) && SelectedParameter != null;
         }
@@ -137,11 +105,6 @@ namespace WPFApplication
         private void RaiseShowRequest()
         {
             ShowRequest?.Invoke(this, EventArgs.Empty);
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName] string PropertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
+        }        
     }
 }
