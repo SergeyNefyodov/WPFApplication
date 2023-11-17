@@ -19,10 +19,10 @@ namespace WPFApplication
     {
         private readonly ISelectionFilter _filter;
         [ObservableProperty] private string _prefix = string.Empty;
-        [ObservableProperty] private string _startValue = string.Empty;
-        [ObservableProperty] private Parameter _selectedParameter;
-        public ViewModel(Reference reference)        {
-            
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(NumerateCommand))] private string _startValue = string.Empty;
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(NumerateCommand))] private Parameter _selectedParameter;
+        public ViewModel(Reference reference)     
+        {            
             _filter = new SelectionFilter(RevitAPI.Document.GetElement(reference));
             CollectParameters(reference);
         } 
@@ -59,8 +59,8 @@ namespace WPFApplication
                         using (Transaction t = new Transaction(RevitAPI.Document, "Нумерация элементов"))
                         {
                             t.Start();
-                            //Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Element, _filter, $"Выберите элемент {i}");
-                            Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Edge, _filter, $"Выберите элемент {i}");
+                            Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Element, _filter, $"Выберите элемент {i}");
+                            //Reference reference = RevitAPI.UiDocument.Selection.PickObject(ObjectType.Edge, _filter, $"Выберите элемент {i}");
                             Parameter parameter = RevitAPI.Document.GetElement(reference).LookupParameter(parameterName);
                             if (parameter != null)
                             {
