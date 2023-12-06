@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WPFApplication"
+             xmlns:local="clr-namespace:WPFApplication" xmlns:utilities="clr-namespace:WPFApplication.Utilities"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:ViewModel}"
-             Height="180" Width="210">
+             Background="{Binding SelectedParameter,
+    Converter={utilities:ParameterColorConverter},
+    UpdateSourceTrigger=PropertyChanged}"
+             SizeToContent="Height"
+             Width="210">
     <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Margin="5" Text="Префикс: "/>
@@ -21,9 +25,14 @@
                   DisplayMemberPath="Definition.Name"
                   Margin="5" 
                   Width ="160" />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <TextBlock
+            Text="Выберите параметр из списка для дальнейшей работы"
+            Margin="5"
+            TextWrapping="Wrap"
+            Visibility="{Binding SelectedParameter, Converter={utilities:ParameterVisibilityConverter}}"/>
+        <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Command="{Binding NumerateCommand}" Margin="5" Padding="5" Content="Запуск" Width="80"/>
             <Button Margin="5" Padding="5" Content="Отмена" Width="80"/>
-        </StackPanel>        
+        </StackPanel>
     </StackPanel>
 </Window>
