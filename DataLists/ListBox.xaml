@@ -1,0 +1,32 @@
+﻿<Window x:Class="WPFApplication.DataLists.DataListBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApplication.DataLists"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance local:DataListViewModel}"
+             SizeToContent="Height"
+             Width="210">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <ListBox 
+            ItemsSource="{Binding Levels}"
+            SelectionMode="Multiple"
+            DisplayMemberPath="Level.Name">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding IsChecked}" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Button Grid.Row="1"
+                Margin="5"
+                Content="Запуск"
+                Command="{Binding RecordParametersCommand}"/>
+    </Grid>
+    
+</Window>
