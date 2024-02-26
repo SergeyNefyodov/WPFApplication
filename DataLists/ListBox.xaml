@@ -27,6 +27,5 @@
                 Margin="5"
                 Content="Запуск"
                 Command="{Binding RecordParametersCommand}"/>
-    </Grid>
-    
+    </Grid>    
 </Window>
