@@ -20,7 +20,7 @@ namespace WPFApplication.DataLists
                 RevitAPI.Initialize(commandData);
             }
             var viewModel = new DataListViewModel();
-            var view = new DataListBox(viewModel);
+            var view = new DataListView(viewModel);
             viewModel.CloseRequest += (s, e) => view.Close();
             viewModel.HideRequest += (s, e) => view.Hide();
             viewModel.ShowRequest += (s, e) => view.ShowDialog();

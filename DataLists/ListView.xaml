@@ -18,14 +18,10 @@
             SelectionMode="Multiple">
             <ListView.ItemTemplate >
                 <DataTemplate >
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox 
-                            Margin="5"
-                            IsChecked="{Binding IsChecked}"/>
-                        <TextBlock 
-                            Margin="5"
-                            Text="{Binding Level.Name}"/>
-                    </StackPanel>
+                    <CheckBox 
+                        Content="{Binding Level.Name}"
+                        Margin="5"
+                        IsChecked="{Binding IsC}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -34,5 +30,4 @@
                 Content="Запуск"
                 Command="{Binding RecordParametersCommand}"/>
     </Grid>
-    
 </Window>
