@@ -13,18 +13,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <ListView 
-            ItemsSource="{Binding Levels}"
-            SelectionMode="Multiple">
-            <ListView.ItemTemplate >
+        <ComboBox
+            ItemsSource="{Binding Levels}" >
+            <ComboBox.ItemTemplate >
                 <DataTemplate >
                     <CheckBox 
                         Content="{Binding Level.Name}"
                         Margin="5"
-                        IsChecked="{Binding IsC}"/>
+                        IsChecked="{Binding IsChecked}"/>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Button Grid.Row="1"
                 Margin="5"
                 Content="Запуск"

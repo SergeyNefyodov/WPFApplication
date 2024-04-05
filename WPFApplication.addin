@@ -1,0 +1,11 @@
+﻿<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>WPFApplication</Name>
+        <Assembly>WPFApplication/WPFApplication.dll</Assembly>
+        <AddInId>F9E2EC33-E932-43F9-B3BA-16617DED5026</AddInId>
+        <FullClassName>WPFApplication.Application</FullClassName>
+        <Text>WPFApplication</Text>
+        <VendorId>MyId</VendorId>
+        <VendorDescription></VendorDescription>
+    </AddIn>
+</RevitAddIns>

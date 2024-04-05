@@ -1,0 +1,40 @@
+﻿<Window x:Class="WPFApplication.SharedParameterManager.SharedParameterManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApplication.SharedParameterManager"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:SharedParameterManagerViewModel}"
+        Title="SharedParameterManagerWindow" Height="450" Width="400">
+    <Grid>
+        <DataGrid
+            ItemsSource="{Binding Parameters}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=OneWay}"/>
+                <DataGridTemplateColumn Header="Удалить">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Width="28"
+                                Height="28"
+                                Margin="0 0 2 2"
+                                Padding="-2 -2 2 2"
+                                CommandParameter="{Binding}"
+                                Command="{Binding DataContext.DeleteParameterCommand, 
+                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+                                <Button.Content>
+                                    <Viewbox>
+                                        <Path Fill="PaleVioletRed" Data="m24,78c0,4.968 4.029,9 9,9h30c4.968,0 9-4.032 9-9l6-48h-60l6,48zm33-39h6v39h-6v-39zm-12,0h6v39h-6v-39zm-12,0h6v39h-6v-39zm43.5-21h-19.5c0,0-1.344-6-3-6h-12c-1.659,0-3,6-3,6h-19.5c-2.487,0-4.5,2.013-4.5,4.5s0,4.5 0,4.5h66c0,0 0-2.013 0-4.5s-2.016-4.5-4.5-4.5z"/>
+                                    </Viewbox>
+                                </Button.Content>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
