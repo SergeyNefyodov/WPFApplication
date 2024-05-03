@@ -1,0 +1,30 @@
+﻿<Window x:Class="WPFApplication.Tagger.TaggerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApplication.Tagger"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:TaggerViewModel}"
+        Title="TaggerView" Height="330" Width="300">
+    <StackPanel Margin="5">
+        <TextBlock Margin="5" Text="Выберите категорию:"/>
+        <ComboBox 
+            Margin="5"
+            ItemsSource="{Binding Mappers}" 
+            SelectedItem="{Binding ActiveMapper}"
+            DisplayMemberPath="CategoryName"/>
+        <TextBlock Margin="5" Text="Выберите тип марки:"/>
+        <ComboBox 
+            Margin="5"
+            ItemsSource="{Binding TagsList}" 
+            SelectedItem="{Binding ActiveTag}"
+            DisplayMemberPath="Name"/>
+        <TextBlock Margin="5" Text="Смещение по горизонтали:"/>
+        <TextBox Margin="5" Text="{Binding HorizontalOffset}"/>
+        <TextBlock Margin="5" Text="Смещение по вертикали:"/>
+        <TextBox Margin="5" Text="{Binding VerticalOffset}"/>
+        <CheckBox Margin="5" Content="Добавить выноску" IsChecked="{Binding AddLeader}"/>
+        <Button Margin="5" Content="Запуск" Command="{Binding MarkAllCommand}"/>
+    </StackPanel>
+</Window>
