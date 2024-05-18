@@ -23,7 +23,7 @@ namespace WPFApplication.WebBrowserExample
         public WebBrowserView()
         {
             InitializeComponent();
-            Browser.Navigate(@"https://dzen.ru/a/ZkNYYOrgqnwdYzfD");
+            Browser.Navigate(@"https://dzen.ru/a/ZkhXjePFq3NCNlGR");
         }
 
         private void SelectLocalPage(object sender, RoutedEventArgs e)
