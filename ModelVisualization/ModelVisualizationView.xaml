@@ -1,0 +1,29 @@
+<Window x:Class="WPFApplication.ModelVisualization.ModelVisualizationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:abstractions="clr-namespace:WPFApplication.ModelVisualization.Abstractions"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance abstractions:IModelVisualizationViewModel}"
+        Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Margin="5" VerticalAlignment="Center" Text="Визуальный стиль:"/>
+            <ComboBox
+                Margin="5"
+                Width="220"
+                ItemsSource="{Binding DisplayStyles}"
+                SelectedItem="{Binding SelectedDisplayStyle}"
+                IsEnabled="{Binding IsDisplayStyleEditable}"/>
+        </StackPanel>
+        <Border Grid.Row="1" Margin="5" BorderBrush="Gray" BorderThickness="1">
+            <ContentControl Content="{Binding Preview}"/>
+        </Border>
+    </Grid>
+</Window>

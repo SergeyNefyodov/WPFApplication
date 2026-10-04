@@ -34,6 +34,7 @@ namespace WPFApplication
             AddPushButton(ribbonPanel, "Button 3", assemblyPath, "WPFApplication.Tagger.TaggerCommand");
             AddPushButton(ribbonPanel, "Web browser", assemblyPath, "WPFApplication.WebBrowserExample.WebBrowserCommand");
             AddPushButton(ribbonPanel, "Data exchange", assemblyPath, "WPFApplication.DataExchangeExample.WindowCommand");
+            AddPushButton(ribbonPanel, "Visual style", assemblyPath, "WPFApplication.ModelVisualization.ModelVisualizationCommand");
         }
 
         private PushButton AddPushButton(RibbonPanel ribbonPanel, string buttonName, string path, string linkToCommand)
